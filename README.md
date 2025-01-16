@@ -45,7 +45,7 @@ This repository contains automated API tests for the Airalo platform. The tests 
 2. **Run All Tests Locally**:
    Execute the tests using Newman:
    ```bash
-   newman run Postman/Airalo_API_AutomationTests.postman_collection.json        -e Postman/Airalo_Environment.json
+   newman run Postman/Airalo.postman_collection.json.                      -e Postman/Airalo.postman_collection.json
    ```
 
 3. **Run Tests with Script**:
