@@ -1,0 +1,368 @@
+{
+	"info": {
+		"_postman_id": "537e5f51-b788-45fb-8892-784dabc07b8a",
+		"name": "Airalo",
+		"description": "> This collection identifies the test cases to ensure that the Intergalactic Bank API returns appropriate responses by testing against functional requirements. Check out the [End-to-end testing collection](https://www.postman.com/templates/68de712c-6b56-4e31-8b0b-627360820279/End-to-end-testing) and [Integration testing collection](https://www.postman.com/templates/6f788c17-067a-4074-a528-d07df1df9529/Integration-testing-%23example) to see other test cases for this API. \n  \n\n## 🪐 Get Started\n\nThe fictional Intergalactic Bank Services team is responsible for testing against the functional requirements for this service. You can use this collection to familiarize yourself with the service and its expected behavior or validate that the changes you make to this service conform to the requirements.\n\nSteps to test the Intergalactic Bank API:\n\n1. **Review tests and scripts:** [Tests](https://learning.postman.com/docs/writing-scripts/test-scripts/) are written under the Scripts tab at the folder and request levels. Different testing requirements are distributed between the folders, so be sure to read the documentation for each folder to understand what is being tested.\n    \n2. **Run tests:** To run the collection, navigate to Run Collection from the collection menu. Note that the Setup folder creates and stores resources that will be tested in the Account Tests folder, so these setup requests should always be a prerequisite.\n    \n3. **Review test results:** We have included error messages for many of the test cases to help debug what may be wrong with the service. If using this collection as a pre-merge check, be sure to have all tests passing before submitting (and no, deleting the failing test cases isn’t an option 😉).\n    \n\nFor more details, check out the additional sections below, and click `View Complete Documentation` for the complete documentation. If you have questions about the folder or request, look for the documentation icon for documentation-in-context.\n\n## 🔍 What we’re testing\n\n- In this collection, we are evaluating specific pieces of data for correctness. We test data types and workflows in our other collections.\n    \n- Each of our test requests is named after a specific business rule we are evaluating, and these rules correspond to our stakeholder’s specifications.\n    \n- Our setup and teardown requests are only tested for status code to make sure they run successfully. These endpoints are tested more in depth in our other collections.\n    \n\n## 🧑‍💻How your team can use this collection:\n\n- **Add a mock server to speed up development:** Adding functionality to this service? Since this collection has example responses, you can add a mock server that will return the expected results. Start writing tests against the mock, and once your additions are live, you can swap out the URLs and have a live test suite.\n    \n- **Integrate tests with your CI/CD pipeline:** This comprehensive test suite is a great addition to your existing CI/CD pipeline. Generate the Postman CLI command from the Collection Runner and add this step to your existing checks each time you make a commit affecting this service.\n    \n- **Add a monitor:** If your team is contributing to or relying on this service, it’s a good idea to keep tabs on the status. Adding a monitor to this collection can give you confidence that the service is up and running, and alert you to any breaking changes that may have occurred.\n    \n\n## 🔒A note on authorization\n\nThis API uses an API key-based authorization. In this collection, we test various access control scenarios, and therefore have different authorization setups throughout. Check the folder-level authorization information to see which authorization, if any, is being applied to the included requests.\n\n## 👀 View and share run results\n\nInterested in seeing previous run results? We’re happy to share, and have a few ways for you to stay in the loop:\n\n- You can also share individual run reports from this page.\n    \n- Monitors: If you have a monitor set up for this collection, you can see historical run information by clicking on the Monitors tab on the right sidebar. You can also have the results sent to Slack or other services by setting up an integration.\n    \n\n## 🤝Increase test coverage\n\nThe Intergalactic Bank Services team wants your team to have everything they need to successfully test our services with their applications. Have you added functionality to the API, or written additional test cases we should include? Reach us on our internal Slack by tagging `@bank-services`. Or add an [inline comment](https://learning.postman.com/docs/collaborating-in-postman/working-with-your-team/discussing-your-work/) to this collection with your test case suggestions.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40988050"
+	},
+	"item": [
+		{
+			"name": "Airalo_API_Tests",
+			"item": [
+				{
+					"name": "Get Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Get Access Token - Status Code Verification\", () => {",
+									"    const status = pm.response.code;",
+									"",
+									"    if (status === 200) {",
+									"        pm.test(\"Token generated - Status 200\", () => {",
+									"            pm.response.to.have.status(200);",
+									"        });",
+									"   ",
+									"    } else if (status === 401) {",
+									"        pm.test(\"Unauthorized - Status 401\", () => {",
+									"            pm.response.to.have.status(401);",
+									"        });",
+									"    } else {",
+									"        pm.test(`Unexpected Status Code: ${status}`, () => {",
+									"            pm.response.to.have.status(status);",
+									"        });",
+									"    }",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify token is returned\", () => {",
+									"    const response = pm.response.json();",
+									"    pm.expect(response.data.access_token).to.be.a('string');",
+									"    pm.environment.set(\"access_token\", response.data.access_token); // Save the token to an environment variable",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessTokenUrl",
+									"value": "https://sandbox-partners-api.airalo.com/v2/token",
+									"type": "string"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "string"
+								},
+								{
+									"key": "tokenName",
+									"value": "Airalo Token",
+									"type": "string"
+								},
+								{
+									"key": "clientSecret",
+									"value": "e5NNajm6jNAzrWsKoAdr41WfDiMeS1l6IcGdhmbb",
+									"type": "string"
+								},
+								{
+									"key": "clientId",
+									"value": "7e29e2facf83359855f746fc490443e6",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://sandbox-partners-api.airalo.com/v2/token",
+							"protocol": "https",
+							"host": [
+								"sandbox-partners-api",
+								"airalo",
+								"com"
+							],
+							"path": [
+								"v2",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Order submission - Status Code Verification\", () => {",
+									"    const status = pm.response.code;",
+									"",
+									"    if (status === 200) {",
+									"        pm.test(\"Order successfully created - Status 200\", () => {",
+									"            pm.response.to.have.status(200);",
+									"        });",
+									"    } ",
+									"    else if (status === 400) {",
+									"        pm.test(\"Validation error - Status 400\", () => {",
+									"            pm.response.to.have.status(400);",
+									"        });",
+									"    } else if (status === 401) {",
+									"        pm.test(\"Unauthorized - Status 401\", () => {",
+									"            pm.response.to.have.status(401);",
+									"        });",
+									"    } else {",
+									"        pm.test(`Unexpected Status Code: ${status}`, () => {",
+									"            pm.response.to.have.status(status);",
+									"        });",
+									"    }",
+									"});",
+									"",
+									"pm.test(\"Verify response to have correct id & quantity\", () => {",
+									"    const response = pm.response.json();",
+									"",
+									"    pm.test(\"verify package_id\", () => {",
+									"        pm.expect(response.data.package_id).to.eql('merhaba-7days-1gb'); ",
+									"    });",
+									"",
+									"     pm.test(\"verify quantity\", () => {",
+									"        pm.expect(response.data.quantity).to.eql(6); ",
+									"    });",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "quantity",
+									"value": "6",
+									"type": "text"
+								},
+								{
+									"key": "package_id",
+									"value": "merhaba-7days-1gb",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://sandbox-partners-api.airalo.com/v2/orders",
+							"protocol": "https",
+							"host": [
+								"sandbox-partners-api",
+								"airalo",
+								"com"
+							],
+							"path": [
+								"v2",
+								"orders"
+							]
+						},
+						"description": "Create a new account and save its id as a collection variable for later use. This account will only be used to transfer money into our \"to\" account."
+					},
+					"response": []
+				},
+				{
+					"name": "Get eSIMs List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Get eSims List - Status Code Verification\", () => {",
+									"    const status = pm.response.code;",
+									"",
+									"    if (status === 200) {",
+									"        pm.test(\"Orders successfully retrieved - Status 200\", () => {",
+									"            pm.response.to.have.status(200);",
+									"        });",
+									"    } else if (status === 401) {",
+									"        pm.test(\"Unauthorized - Status 401\", () => {",
+									"            pm.response.to.have.status(401);",
+									"        });",
+									"    } else {",
+									"        pm.test(`Unexpected Status Code: ${status}`, () => {",
+									"            pm.response.to.have.status(status);",
+									"        });",
+									"    }",
+									"});",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://sandbox-partners-api.airalo.com/v2/sims?include=order",
+							"protocol": "https",
+							"host": [
+								"sandbox-partners-api",
+								"airalo",
+								"com"
+							],
+							"path": [
+								"v2",
+								"sims"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "order"
+								}
+							]
+						},
+						"description": "Create a new account and save its id as a collection variable for later use. This account will receive transferred funds."
+					},
+					"response": []
+				}
+			],
+			"description": "This folder sets up the resources needed for the test folders later in the collection:\n\n1. **Generate new API key** - Generates a new API key for use in the collection and saves the value as a collection variable, authorizing all following requests.\n2. **Create** **`fromAccount`** - This account is created to test the results of a transaction. Saves the accountId as a collection variable, named as `fromAccountId`. This account will send funds in a transfer.\n3. **Create** **`toAccount`** - Creates a new account that we will use in the `Account Tests` folder. Saves the accountId as a collection variable, named as `toAccountId`. This account will receive a transfer of funds.\n4. **Transfer 500 coins to \"to\" account** - Transfer 500 coins from the `fromAccount` to the `toAccount`."
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{apiKey}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "api-key",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {",
+					"    pm.response.to.have.status(200);",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://template.postman-echo.com",
+			"type": "string"
+		},
+		{
+			"key": "apiKey",
+			"value": "hRkgiBSD.alY86KwTdRXh2WHrgH1Gs"
+		}
+	]
+}
