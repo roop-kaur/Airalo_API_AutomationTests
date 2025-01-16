@@ -85,27 +85,8 @@ Airalo_API_AutomationTests/
 ## **Managing Secrets**
 
 To keep sensitive information secure, we can leverage some techniques like `.gitignore`, CI/CD or softwares like Vault or so. 
-   
----
-
-## **Contributing**
-
-Contributions are welcome! To contribute:
-1. Fork the repository.
-2. Create a feature branch:
-   ```bash
-   git checkout -b feature/new-feature
-   ```
-3. Commit your changes and push the branch:
-   ```bash
-   git commit -m "Add new feature"
-   git push origin feature/new-feature
-   ```
-4. Create a Pull Request.
 
 ---
-
-
 
 ## **Contact**
 For any issues or queries, please contact:
